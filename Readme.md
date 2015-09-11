@@ -1,12 +1,15 @@
 # ConDeBot
-Un con de bot IRC.
+Un con de bot IRC (extension python3 pour Weechat).
 
 ## Features
-* Display his own version 
-  ``!cdb version``
-* Display actual weather and temperature of a location 
-  ``!cdb weather CITY_NAME``
-* Display random quotes and specific quotes from Kaamelott.txt ``!cdb kaamelott
+* Display his own version  
+``!cdb version``
+* Display actual weather and temperature of a location  
+``!cdb weather CITY_NAME``
+* Display random quotes and specific quotes from Kaamelott.txt  
+``!cdb kaamelott [-q ID]``
+* Display help  
+``!cdb help``
 
 ## To Be Done
 * !cdb time Tokyo pour avoir l'heure actuelle de Tokyo (+ Décalage UTC).
