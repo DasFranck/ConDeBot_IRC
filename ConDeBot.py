@@ -8,7 +8,7 @@
 ## Version: 0.3 (11/09/2015)
 
 ## Dependencies : Python-forecastio (pip2 install python-forecastio)
-##                  Python wrapper around the OpenWeatherMap API  
+##                  Python wrapper around the OpenWeatherMap API
 ##                GeoPy (pip2 install geopy)
 ##                  Python client for several popular geocoding web services.
 
@@ -23,7 +23,7 @@ VERS = '0.3'                                # Version
 WAPI = ""                                   # Forecast.io API Key
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
-        + "!cdb kaamelott [-q nb]       Kaamelott quotes\n" \
+        + "!cdb kaamelott [-q ID]       Kaamelott quotes\n" \
         + "!cdb version                 Show CDB and Weechat Version\n" \
         + "!cdb weather CITY_NAME       Show the weather and temperature of CITY_NAME"
 
@@ -79,7 +79,7 @@ def cmd_kaamelott_spec(data, buffer, date, tags, displayed, highlight, prefix, m
     buf = fd_kaam.read();
 
     if (len(arglist) == 3):
-        weechat.command(buffer, "There's " + buf[0:buf.index('\n')] + "Kaamelott Quote"); 
+        weechat.command(buffer, "There's " + buf[0:buf.index('\n')] + "Kaamelott Quote");
         weechat.prnt(data, "Number of Kaamelott Quotes (" + buf[0:buf.index('\n')] + ") was requested by " + prefix + " at " + date + ".");
         fd_kaam.close();
         return (weechat.WEECHAT_RC_OK);
@@ -127,7 +127,7 @@ def cmd_weather(data, buffer, date, tags, displayed, highlight, prefix, message)
     forecast = forecastio.load_forecast(WAPI, loc.latitude, loc.longitude, units="si");
     current_weather = forecast.currently();
     weechat.command(buffer, "Weather : " + current_weather.summary);
-    weechat.command(buffer, "Temperature : " + str(current_weather.temperature) + "C"); 
+    weechat.command(buffer, "Temperature : " + str(current_weather.temperature) + " °C");
     weechat.prnt(data, "Weather of " + arglist[2] + " was requested by " + prefix + " at " + date + ".");
     return (weechat.WEECHAT_RC_OK);
 
