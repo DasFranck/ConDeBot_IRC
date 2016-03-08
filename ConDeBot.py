@@ -46,8 +46,8 @@ try:
     import sys
     import weechat
     from geopy.geocoders import Nominatim
-    from ConDeBot.modules import kaamelott
-    from ConDeBot.modules import weather
+    from ConDeBot.modules.kaamelott import *
+    from ConDeBot.modules.kaamelott import *
 except ImportError as message:
     print('Missing package(s) for %s: %s' % (NAME, message))
     import_ok = False
@@ -74,6 +74,7 @@ def cmd_version(data, buffer, date, tags, displayed, highlight, prefix, message)
 # Coffee Sir.
 def cmd_coffee(data, buffer, date, tags, displayed, highlight, prefix, message):
     weechat.command(buffer, "Here " + prefix + ", that's your coffee. Without sugar.")
+    return (weechat.WEECHAT_RC_OK)
 
 
 ## CDB
@@ -84,7 +85,7 @@ def con_de_bot(data, buffer, date, tags, displayed, highlight, prefix, message):
     if (len(arglist) == 1):
         weechat.command(buffer, HELP);
         weechat.prnt(data, "Help was? requested by " + prefix + " at " + date + ".")
-        return (weechat.WEECHAT_RC_ERROR);
+        return (weechat.WEECHAT_RC_ERROR)
     elif (arglist[1] == "version"):
         return (cmd_version(data, buffer, date, tags, displayed, highlight, prefix, message))
     elif (arglist[1] == "weather"):
