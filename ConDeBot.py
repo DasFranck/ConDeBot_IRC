@@ -21,7 +21,7 @@ NAME        = 'ConDeBot'                            # Name
 SHME        = 'CDB'                                 # Short Name
 VERS        = '0.3'                                 # Version
 WAPI        = "d9a2ec468ac33925d45017727ed4e499"    # Forecast.io API Key
-CDB_PATH    = '../ConDeBot/'  # Path to Kaamelott txt file
+CDB_PATH    = '../ConDeBot/'                        # Path to ConDeBot root directory
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
         + "!cdb kaamelott [-q ID]       Kaamelott quotes\n" \
@@ -47,7 +47,7 @@ try:
     import weechat
     from geopy.geocoders import Nominatim
     from ConDeBot.modules.kaamelott import *
-    from ConDeBot.modules.kaamelott import *
+    from ConDeBot.modules.weather import *
 except ImportError as message:
     print('Missing package(s) for %s: %s' % (NAME, message))
     import_ok = False
