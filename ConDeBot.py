@@ -23,7 +23,7 @@ VERS = '0.3'                                # Version
 WAPI = "d9a2ec468ac33925d45017727ed4e499"   # Forecast.io API Key
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
-        + "!cdb kaamelott [-q nb]       Kaamelott quotes\n" \
+        + "!cdb kaamelott [-q ID]       Kaamelott quotes\n" \
         + "!cdb version                 Show CDB and Weechat Version\n" \
         + "!cdb weather CITY_NAME       Show the weather and temperature of CITY_NAME"
 
@@ -131,7 +131,7 @@ def cmd_weather(data, buffer, date, tags, displayed, highlight, prefix, message)
     forecast = forecastio.load_forecast(WAPI, loc.latitude, loc.longitude, units="si");
     current_weather = forecast.currently();
     weechat.command(buffer, "Weather : " + current_weather.summary);
-    weechat.command(buffer, "Temperature : " + str(current_weather.temperature) + "C");
+    weechat.command(buffer, "Temperature : " + str(current_weather.temperature) + " °C");
     weechat.prnt(data, "Weather of " + arglist[2] + " was requested by " + prefix + " at " + date + ".");
     return (weechat.WEECHAT_RC_OK);
 
