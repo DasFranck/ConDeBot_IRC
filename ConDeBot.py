@@ -17,10 +17,11 @@
 ## hook_cdb/con_de_bot = Hook pour l'appel du bot.
 
 
-NAME = 'ConDeBot'                           # Name
-SHME = 'CDB'                                # Short Name
-VERS = '0.3'                                # Version
-WAPI = "d9a2ec468ac33925d45017727ed4e499"   # Forecast.io API Key
+NAME        = 'ConDeBot'                            # Name
+SHME        = 'CDB'                                 # Short Name
+VERS        = '0.3'                                 # Version
+WAPI        = "d9a2ec468ac33925d45017727ed4e499"    # Forecast.io API Key
+KAAM_PATH   = '../ConDdBot/txtfiles/kaamelott.txt'  # Path to Kaamelott txt file
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
         + "!cdb kaamelott [-q ID]       Kaamelott quotes\n" \
@@ -61,7 +62,7 @@ def buffer_close_cb(data, buffer):
 # Display random quotes of Kaamelott
 def cmd_kaamelott_quote(data, buffer, date, tags, displayed, highlight, prefix, message):
     arglist = shlex.split(message);
-    fd_kaam = codecs.open("txtfiles/kaamelott.txt", "r", "utf-8");
+    fd_kaam = codecs.open(KAAM_PATH, "r", "utf-8");
     buf = fd_kaam.read();
 
     nb = random.randint(1, int(buf[0:buf.index('\n')]));
@@ -77,7 +78,7 @@ def cmd_kaamelott_quote(data, buffer, date, tags, displayed, highlight, prefix, 
 # Display specific quotes of Kaamelott
 def cmd_kaamelott_spec(data, buffer, date, tags, displayed, highlight, prefix, message):
     arglist = shlex.split(message);
-    fd_kaam = codecs.open("txtfiles/kaamelott.txt", "r", "utf-8");
+    fd_kaam = codecs.open(KAAM_PATH, "r", "utf-8");
     buf = fd_kaam.read();
 
     if (len(arglist) == 3):
