@@ -8,7 +8,7 @@
 ## Version: 0.3 (11/09/2015)
 
 ## Dependencies : Python-forecastio (pip2 install python-forecastio)
-##                  Python wrapper around the OpenWeatherMap API  
+##                  Python wrapper around the OpenWeatherMap API
 ##                GeoPy (pip2 install geopy)
 ##                  Python client for several popular geocoding web services.
 
@@ -20,7 +20,7 @@
 NAME = 'ConDeBot'                           # Name
 SHME = 'CDB'                                # Short Name
 VERS = '0.3'                                # Version
-WAPI = ""                                   # Forecast.io API Key
+WAPI = "d9a2ec468ac33925d45017727ed4e499"   # Forecast.io API Key
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
         + "!cdb kaamelott [-q nb]       Kaamelott quotes\n" \
@@ -42,6 +42,7 @@ try:
     import forecastio
     import random
     import shlex
+    import sys
     import weechat
     from geopy.geocoders import Nominatim
 except ImportError as message:
@@ -60,7 +61,7 @@ def buffer_close_cb(data, buffer):
 # Display random quotes of Kaamelott
 def cmd_kaamelott_quote(data, buffer, date, tags, displayed, highlight, prefix, message):
     arglist = shlex.split(message);
-    fd_kaam = codecs.open("kaamelott.txt", "r", "utf-8");
+    fd_kaam = codecs.open("txtfiles/kaamelott.txt", "r", "utf-8");
     buf = fd_kaam.read();
 
     nb = random.randint(1, int(buf[0:buf.index('\n')]));
@@ -72,14 +73,15 @@ def cmd_kaamelott_quote(data, buffer, date, tags, displayed, highlight, prefix, 
     fd_kaam.close();
     return (weechat.WEECHAT_RC_OK);
 
+## CDB_Kaamelott
 # Display specific quotes of Kaamelott
 def cmd_kaamelott_spec(data, buffer, date, tags, displayed, highlight, prefix, message):
     arglist = shlex.split(message);
-    fd_kaam = codecs.open("kaamelott.txt", "r", "utf-8");
+    fd_kaam = codecs.open("txtfiles/kaamelott.txt", "r", "utf-8");
     buf = fd_kaam.read();
 
     if (len(arglist) == 3):
-        weechat.command(buffer, "There's " + buf[0:buf.index('\n')] + "Kaamelott Quote"); 
+        weechat.command(buffer, "There's " + buf[0:buf.index('\n')] + "Kaamelott Quote");
         weechat.prnt(data, "Number of Kaamelott Quotes (" + buf[0:buf.index('\n')] + ") was requested by " + prefix + " at " + date + ".");
         fd_kaam.close();
         return (weechat.WEECHAT_RC_OK);
@@ -108,6 +110,7 @@ def cmd_kaamelott(data, buffer, date, tags, displayed, highlight, prefix, messag
     return (weechat.WEECHAT_RC_OK);
 
 
+## CDB_Version
 # Display version of CDB and Weechat
 def cmd_version(data, buffer, date, tags, displayed, highlight, prefix, message):
     weechat.command(buffer, NAME + " version : " + VERS);
@@ -116,6 +119,7 @@ def cmd_version(data, buffer, date, tags, displayed, highlight, prefix, message)
     return (weechat.WEECHAT_RC_OK);
 
 
+## CDB_Weather
 # Display weather of the city of arglist[2]
 def cmd_weather(data, buffer, date, tags, displayed, highlight, prefix, message):
     arglist = shlex.split(message);
@@ -127,11 +131,18 @@ def cmd_weather(data, buffer, date, tags, displayed, highlight, prefix, message)
     forecast = forecastio.load_forecast(WAPI, loc.latitude, loc.longitude, units="si");
     current_weather = forecast.currently();
     weechat.command(buffer, "Weather : " + current_weather.summary);
-    weechat.command(buffer, "Temperature : " + str(current_weather.temperature) + "C"); 
+    weechat.command(buffer, "Temperature : " + str(current_weather.temperature) + "C");
     weechat.prnt(data, "Weather of " + arglist[2] + " was requested by " + prefix + " at " + date + ".");
     return (weechat.WEECHAT_RC_OK);
 
 
+## CDB_Coffee
+# Coffee Sir.
+def cmd_coffee(data, buffer, date, tags, displayed, highlight, prefix, message):
+    weechat.command(buffer, "Here " + prefix + ", that's your coffee. Without sugar.")
+
+
+## CDB
 # What do the bot says ?
 def con_de_bot(data, buffer, date, tags, displayed, highlight, prefix, message):
     arglist = shlex.split(message);
@@ -146,10 +157,11 @@ def con_de_bot(data, buffer, date, tags, displayed, highlight, prefix, message):
         return (cmd_weather(data, buffer, date, tags, displayed, highlight, prefix, message));
     elif (arglist[1] == "kaamelott"):
         return (cmd_kaamelott(data, buffer, date, tags, displayed, highlight, prefix, message));
+    elif (arglist[1] == "café" or arglist[1] == "cafe" or arglist[1] == "coffee"):
+        return (cmd_coffee(data, buffer, date, tags, displayed, highlight, prefix, message));
     elif (arglist[1] == "help"):
         weechat.command(buffer, HELP);
         weechat.prnt(data, "Help was requested by " + prefix + " at " + date + ".");
-
     return (weechat.WEECHAT_RC_OK);
 
 
