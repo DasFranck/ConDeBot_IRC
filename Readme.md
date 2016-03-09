@@ -19,7 +19,7 @@ Un con de bot IRC.
 * !cdb rep DasFranck "J'ai faim"
 
 ## Changelog
-### Version 0.3nw (09/03/2015)
+### Version 0.3nw (09/03/2016)
 * Complete rewriting of CDB
 * CDB is now standalone and doesn't need WeeChat anymore
 * Coffee service added
