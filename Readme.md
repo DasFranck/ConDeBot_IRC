@@ -1,5 +1,6 @@
 # ConDeBot
 Un con de bot IRC (extension python3 pour Weechat).
+To be standalone.
 
 ## Features
 * Display his own version  
