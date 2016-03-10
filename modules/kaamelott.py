@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 
-import shlex
-import codecs
-import random
+try:
+    import codecs
+    import random
+    import shlex
+except ImportError as message:
+    print('Missing package(s) for %s: %s' % (NAME, message))
+    exit(12)
+
 
 # Display random quotes of Kaamelott
 def quote(self, serv, message, nick, public):

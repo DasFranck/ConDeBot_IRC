@@ -114,16 +114,16 @@ class CDB(irc.bot.SingleServerIRCBot):
 
         if (ev.arguments[0].split(" ")[0] == "!cdb"):
             if (len(ev.arguments[0].split(" ")) == 1):
-                self.log_info_command("Help requested by " + ev.source.split("!")[0], public)
+                self.log_info_command("Help requested by " + nick, public)
                 self.speak(serv, HELP, nick, public)
                 return
 
             if (ev.arguments[0].split(" ")[1] == "version"):
-                self.log_info_command("Version requested by " + ev.source.split("!")[0], public)
+                self.log_info_command("Version requested by " + nick, public)
                 self.speak(serv, NAME + " version : " + VERS, nick, public)
 
             elif (ev.arguments[0].split(" ")[1] in ["café", "cafe", "coffee"]):
-                self.log_info_command("Coffee requested by " + ev.source.split("!")[0], public)
+                self.log_info_command("Coffee requested by " + nick, public)
                 self.speak(serv, "Here " + nick + ", that's your coffee. " + coffee.quote(), nick, public)
 
             elif (ev.arguments[0].split(" ")[1] in ["kaamelott"]):
