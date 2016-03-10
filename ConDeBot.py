@@ -6,7 +6,7 @@
 ##
 ## Author:  "Das" Franck Hochstaetter
 ## Version: 0.3nw (09/03/2016)
-
+##
 ## Dependencies : Python-forecastio (pip install python-forecastio)
 ##                  Python wrapper around the OpenWeatherMap API
 ##                GeoPy (pip install geopy)
@@ -45,7 +45,7 @@ except ImportError as message:
     print('Missing package(s) for %s: %s' % (NAME, message))
     exit(12)
 
-#from modules import kaamelott
+from modules import kaamelott
 from modules import coffee
 
 
@@ -90,16 +90,29 @@ class CDB(irc.bot.SingleServerIRCBot):
         self.do_command(serv, ev, False)
 
     def speak(self, serv, string, nick, public):
-        if (public):
-            serv.privmsg(self.channel, string)
-        else:
-            serv.privmsg(nick, string)
+        for line in string.split("\n"):
+            if (public):
+                serv.privmsg(self.channel, line)
+            else:
+                serv.privmsg(nick, line)
 
     def log_info_command(self, string, public):
         if (public):
             self.logger.info(string + " in " + self.channel)
         else:
             self.logger.info(string + " via Private Message")
+
+    def log_warn_command(self, string, public):
+        if (public):
+            self.logger.warn(string + " in " + self.channel)
+        else:
+            self.logger.warn(string + " via Private Message")
+
+    def log_error_command(self, string, public):
+        if (public):
+            self.logger.error(string + " in " + self.channel)
+        else:
+            self.logger.error(string + " via Private Message")
 
     def do_command(self, serv, ev, public):
         nick = ev.source.nick
@@ -108,8 +121,7 @@ class CDB(irc.bot.SingleServerIRCBot):
         if (ev.arguments[0].split(" ")[0] == "!cdb"):
             if (len(ev.arguments[0].split(" ")) == 1):
                 self.log_info_command("Help requested by " + ev.source.split("!")[0], public)
-                for line in HELP.split("\n"):
-                    self.speak(serv, line, nick, public)
+                self.speak(serv, HELP, nick, public)
                 return
 
             if (ev.arguments[0].split(" ")[1] == "version"):
@@ -119,6 +131,9 @@ class CDB(irc.bot.SingleServerIRCBot):
             elif (ev.arguments[0].split(" ")[1] in ["café", "cafe", "coffee"]):
                 self.log_info_command("Coffee requested by " + ev.source.split("!")[0], public)
                 self.speak(serv, "Here " + nick + ", that's your coffee. " + coffee.quote(), nick, public)
+
+            elif (ev.arguments[0].split(" ")[1] in ["kaamelott"]):
+                kaamelott.main(self, serv, ev.arguments[0], nick, public)
 
 
 
