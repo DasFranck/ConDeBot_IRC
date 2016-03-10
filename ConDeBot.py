@@ -27,26 +27,20 @@ HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
 
 try:
     import argparse
-    import codecs
-    import forecastio
-    from geopy.geocoders import Nominatim
     import irc
     import irc.bot
     import irc.client
     import logging
     from logging.handlers import RotatingFileHandler
     import os
-    import random
-    import shlex
-    import sys
-    from time import gmtime, strftime
-#    from ConDeBot.modules.weather import *
 except ImportError as message:
     print('Missing package(s) for %s: %s' % (NAME, message))
     exit(12)
 
+# Import ConDeBot modules
 from modules import kaamelott
 from modules import coffee
+#from modules import weather
 
 
 class CDB(irc.bot.SingleServerIRCBot):
