@@ -20,6 +20,7 @@ VERS        = '0.3nw'                               # Version
 CDB_PATH    = '../ConDeBot/'                        # Path to ConDeBot root directory
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
+        + "!cdb coffee                  Serve some coffee\n" \
         + "!cdb kaamelott [-q ID]       Kaamelott quotes\n" \
         + "!cdb version                 Show CDB and Weechat Version\n" \
         + "!cdb weather CITY_NAME       Show the weather and temperature of CITY_NAME"
