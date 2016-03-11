@@ -5,7 +5,7 @@
 ## Desc:    Un con de bot IRC.
 ##
 ## Author:  "Das" Franck Hochstaetter
-## Version: 0.3nw (09/03/2016)
+## Version: 0.4 (11/03/2016)
 ##
 ## Dependencies : Python-forecastio (pip install python-forecastio)
 ##                  Python wrapper around the OpenWeatherMap API

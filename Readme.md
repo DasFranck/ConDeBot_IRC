@@ -6,9 +6,9 @@ Un con de bot IRC.
 ``!cdb version``
 * Make a good coffee
 ``!cdb coffee``
-* Display actual weather and temperature of a location __KO__  
+* Display actual weather and temperature of a location  
 ``!cdb weather CITY_NAME``
-* Display random quotes and specific quotes from Kaamelott.txt __KO__  
+* Display random quotes and specific quotes from Kaamelott.txt  
 ``!cdb kaamelott [-q ID]``
 * Display help  
 ``!cdb help``
@@ -19,6 +19,10 @@ Un con de bot IRC.
 * !cdb rep DasFranck "J'ai faim"
 
 ## Changelog
+### Version 0.4 (11/03/2016)
+* Kaamellot and weather are back from the dead.
+* Full rewrite finished.
+
 ### Version 0.3nw (09/03/2016)
 * Complete rewriting of CDB
 * CDB is now standalone and doesn't need WeeChat anymore
