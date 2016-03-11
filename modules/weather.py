@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
+WAPI        = "d9a2ec468ac33925d45017727ed4e499"    # Forecast.io API Key
+
 try:
     import forecastio
     from geopy.geocoders import Nominatim
+    import shlex
 except ImportError as message:
     print('Missing package(s) for %s: %s' % (NAME, message))
     exit(12)
@@ -18,12 +21,13 @@ def main(self, serv, message, nick, public):
     geolocator = Nominatim();
     city_name = "";
     for i in range(2, len(arglist)):
-        city_name += arglist[i]
+        city_name += arglist[i] + " "
 
+    city_name = city_name[:-1]
     loc = geolocator.geocode(city_name)
     forecast = forecastio.load_forecast(WAPI, loc.latitude, loc.longitude, units="si")
     current_weather = forecast.currently()
     self.speak(serv, "Weather : " + current_weather.summary, nick, public)
     self.speak(serv, "Temperature : " + str(current_weather.temperature) + " °C", nick, public)
-    self.log_info_command(data, "Weather of " + city_name + " was requested by " + nick, public)
+    self.log_info_command("Weather of " + city_name + " was requested by " + nick, public)
     return (0)

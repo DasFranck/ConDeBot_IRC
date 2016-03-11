@@ -17,7 +17,6 @@
 NAME        = 'ConDeBot'                            # Name
 SHME        = 'CDB'                                 # Short Name
 VERS        = '0.3nw'                               # Version
-WAPI        = "d9a2ec468ac33925d45017727ed4e499"    # Forecast.io API Key
 CDB_PATH    = '../ConDeBot/'                        # Path to ConDeBot root directory
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
@@ -40,7 +39,7 @@ except ImportError as message:
 # Import ConDeBot modules
 from modules import kaamelott
 from modules import coffee
-#from modules import weather
+from modules import weather
 
 
 class CDB(irc.bot.SingleServerIRCBot):
@@ -65,6 +64,7 @@ class CDB(irc.bot.SingleServerIRCBot):
         self.logger.addHandler(stream_handler)
 
         #Init IRCBot
+        self.logger.info("#------------------------------#")
         self.logger.info("Initialization of IRCBot Started")
         irc.bot.SingleServerIRCBot.__init__(self, [(server, port)], nickname, "Con de Bot IRC")
         irc.client.ServerConnection.buffer_class.errors = 'replace'
@@ -129,6 +129,8 @@ class CDB(irc.bot.SingleServerIRCBot):
             elif (ev.arguments[0].split(" ")[1] in ["kaamelott"]):
                 kaamelott.main(self, serv, ev.arguments[0], nick, public)
 
+            elif (ev.arguments[0].split(" ")[1] in ["weather", "météo", "meteo"]):
+                weather.main(self, serv, ev.arguments[0], nick, public)
 
 
 # The Main.
