@@ -1,4 +1,6 @@
 *.pyc
 *.swp
-logs/
 *.log
+
+logs/
+jsonfiles/
