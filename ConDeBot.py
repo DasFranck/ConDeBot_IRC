@@ -14,9 +14,10 @@
 ##                Irc (pip install irc)
 
 
+#Define globals
 NAME        = 'ConDeBot'                            # Name
 SHME        = 'CDB'                                 # Short Name
-VERS        = '0.3nw'                               # Version
+VERS        = '0.5'                                 # Version
 CDB_PATH    = '../ConDeBot/'                        # Path to ConDeBot root directory
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
@@ -25,6 +26,7 @@ HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
         + "!cdb version                 Show CDB and Weechat Version\n" \
         + "!cdb weather CITY_NAME       Show the weather and temperature of CITY_NAME"
 
+#Import modules with try and catch
 try:
     import argparse
     import irc
@@ -47,6 +49,7 @@ class CDB(irc.bot.SingleServerIRCBot):
     logger = logging.getLogger()
     server = ""
 
+    #Bot Initialization
     def __init__(self, server, port, channel, nickname):
         #Set logger level to INFO (almost all)
         self.logger.setLevel(logging.INFO)
@@ -73,17 +76,21 @@ class CDB(irc.bot.SingleServerIRCBot):
         self.server = server
         self.logger.info("Initialization of IRCBot Done")
 
+    #Actions done when connected to IRC server
     def on_welcome(self, serv, ev):
         self.logger.info("Join server " + self.server)
         serv.join(self.channel)
         self.logger.info("Join channel " + self.channel)
 
+    #Actions done when message is receive on public channel
     def on_pubmsg(self, serv, ev):
         self.do_command(serv, ev, True)
 
+    #Actions done when message is receive on private channel
     def on_privmsg(self, serv, ev):
         self.do_command(serv, ev, False)
 
+    #Actions to manage speak on public OR private channel
     def speak(self, serv, string, nick, public):
         for line in string.split("\n"):
             if (public):
@@ -91,48 +98,62 @@ class CDB(irc.bot.SingleServerIRCBot):
             else:
                 serv.privmsg(nick, line)
 
+    #Actions to manage log info on public OR private channel
     def log_info_command(self, string, public):
         if (public):
             self.logger.info(string + " in " + self.channel)
         else:
             self.logger.info(string + " via Private Message")
 
+    #Actions to manage log warnings on public OR private channel
     def log_warn_command(self, string, public):
         if (public):
             self.logger.warn(string + " in " + self.channel)
         else:
             self.logger.warn(string + " via Private Message")
 
+    #Actions to manage error warnings on public OR private channel
     def log_error_command(self, string, public):
         if (public):
             self.logger.error(string + " in " + self.channel)
         else:
             self.logger.error(string + " via Private Message")
 
+    #Actions to execute commands
     def do_command(self, serv, ev, public):
         nick = ev.source.nick
         channel = self.connection
+        command = ev.arguments[0];
 
-        if (ev.arguments[0].split(" ")[0] == "!cdb"):
-            if (len(ev.arguments[0].split(" ")) == 1):
+        if (command.split(" ")[0] == "!cdb"):
+
+            #Display help
+            if (len(command.split(" ")) == 1 or command.split(" ")[1] == "help"):
                 self.log_info_command("Help requested by " + nick, public)
                 self.speak(serv, HELP, nick, public)
                 return
 
-            if (ev.arguments[0].split(" ")[1] == "version"):
+            #Display bot's version
+            if (command.split(" ")[1] == "version"):
                 self.log_info_command("Version requested by " + nick, public)
-                self.speak(serv, NAME + " version : " + VERS, nick, public)
+                self.speak(serv, NAME + "'s version : " + VERS, nick, public)
 
-            elif (ev.arguments[0].split(" ")[1] in ["café", "cafe", "coffee"]):
+            #Serve a delicious coffee (Module: "coffee")
+            elif (command.split(" ")[1] in ["café", "cafe", "coffee"]):
                 self.log_info_command("Coffee requested by " + nick, public)
                 self.speak(serv, "Here " + nick + ", that's your coffee. " + coffee.quote(), nick, public)
 
-            elif (ev.arguments[0].split(" ")[1] in ["kaamelott"]):
-                kaamelott.main(self, serv, ev.arguments[0], nick, public)
+            #Display a kaamelott quote (Module: "kaamelott")
+            elif (command.split(" ")[1] in ["kaamelott"]):
+                kaamelott.main(self, serv, command, nick, public)
 
-            elif (ev.arguments[0].split(" ")[1] in ["weather", "météo", "meteo"]):
-                weather.main(self, serv, ev.arguments[0], nick, public)
+            #Display the weather of the argument city (Module: "Weather)
+            elif (command.split(" ")[1] in ["weather", "météo", "meteo"]):
+                weather.main(self, serv, command, nick, public)
 
+            #Set/Unset operators
+            elif (command.split(" ")[1] in ["op", "deop"]):
+                command #Do nothing for now
 
 # The Main.
 def main():
