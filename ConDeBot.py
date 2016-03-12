@@ -5,7 +5,7 @@
 ## Desc:    Un con de bot IRC.
 ##
 ## Author:  "Das" Franck Hochstaetter
-## Version: 0.4 (11/03/2016)
+## Version: 0.5dev (11/03/2016)
 ##
 ## Dependencies : Python-forecastio (pip install python-forecastio)
 ##                  Python wrapper around the OpenWeatherMap API
@@ -17,7 +17,7 @@
 #Define globals
 NAME        = 'ConDeBot'                            # Name
 SHME        = 'CDB'                                 # Short Name
-VERS        = '0.5'                                 # Version
+VERS        = '0.5dev'                              # Version
 CDB_PATH    = '../ConDeBot/'                        # Path to ConDeBot root directory
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
@@ -25,6 +25,7 @@ HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
         + "!cdb kaamelott [-q ID]       Kaamelott quotes\n" \
         + "!cdb version                 Show CDB and Weechat Version\n" \
         + "!cdb weather CITY_NAME       Show the weather and temperature of CITY_NAME"
+
 
 #Import modules with try and catch
 try:
@@ -43,6 +44,8 @@ except ImportError as message:
 from modules import kaamelott
 from modules import coffee
 from modules import weather
+from modules import opmod
+
 
 
 class CDB(irc.bot.SingleServerIRCBot):
@@ -75,20 +78,24 @@ class CDB(irc.bot.SingleServerIRCBot):
         self.channel = channel
         self.server = server
         self.logger.info("Initialization of IRCBot Done")
+        return
 
     #Actions done when connected to IRC server
     def on_welcome(self, serv, ev):
         self.logger.info("Join server " + self.server)
         serv.join(self.channel)
         self.logger.info("Join channel " + self.channel)
+        return
 
     #Actions done when message is receive on public channel
     def on_pubmsg(self, serv, ev):
         self.do_command(serv, ev, True)
+        return
 
     #Actions done when message is receive on private channel
     def on_privmsg(self, serv, ev):
         self.do_command(serv, ev, False)
+        return
 
     #Actions to manage speak on public OR private channel
     def speak(self, serv, string, nick, public):
@@ -97,6 +104,7 @@ class CDB(irc.bot.SingleServerIRCBot):
                 serv.privmsg(self.channel, line)
             else:
                 serv.privmsg(nick, line)
+        return
 
     #Actions to manage log info on public OR private channel
     def log_info_command(self, string, public):
@@ -104,6 +112,7 @@ class CDB(irc.bot.SingleServerIRCBot):
             self.logger.info(string + " in " + self.channel)
         else:
             self.logger.info(string + " via Private Message")
+        return
 
     #Actions to manage log warnings on public OR private channel
     def log_warn_command(self, string, public):
@@ -111,6 +120,7 @@ class CDB(irc.bot.SingleServerIRCBot):
             self.logger.warn(string + " in " + self.channel)
         else:
             self.logger.warn(string + " via Private Message")
+        return
 
     #Actions to manage error warnings on public OR private channel
     def log_error_command(self, string, public):
@@ -118,6 +128,7 @@ class CDB(irc.bot.SingleServerIRCBot):
             self.logger.error(string + " in " + self.channel)
         else:
             self.logger.error(string + " via Private Message")
+        return
 
     #Actions to execute commands
     def do_command(self, serv, ev, public):
@@ -153,7 +164,8 @@ class CDB(irc.bot.SingleServerIRCBot):
 
             #Set/Unset operators
             elif (command.split(" ")[1] in ["op", "deop"]):
-                command #Do nothing for now
+                opmod.main(self, serv, command, nick, public)
+        return
 
 # The Main.
 def main():
@@ -165,6 +177,7 @@ def main():
     args = parser.parse_args()
 
     CDB(args.server, args.port, args.channel, args.nickname).start()
+    return
 
 
 if __name__ == '__main__':
