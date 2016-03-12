@@ -16,7 +16,7 @@
 
 NAME        = 'ConDeBot'                            # Name
 SHME        = 'CDB'                                 # Short Name
-VERS        = '0.3nw'                               # Version
+VERS        = '0.4'                               # Version
 CDB_PATH    = '../ConDeBot/'                        # Path to ConDeBot root directory
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
