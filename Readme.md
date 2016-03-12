@@ -1,22 +1,31 @@
 # ConDeBot
-Un con de bot IRC. 
+Un con de bot IRC.
 
 ## Features
-* Display his own version  
-``!cdb version``
-* Make a good coffee
-``!cdb coffee``
-* Display actual weather and temperature of a location  
-``!cdb weather CITY_NAME``
-* Display random quotes and specific quotes from Kaamelott.txt  
-``!cdb kaamelott [-q ID]``
+
+* Make a good coffee  
+``!cdb coffee`` or ``!cdb café`` or ``!cdb cafe``
+
 * Display help  
 ``!cdb help``
 
+* Display random quotes and specific quotes from Kaamelott.txt  
+``!cdb kaamelott [-q ID]``
+
+* Display his own version  
+``!cdb version``
+
+* Display actual weather and temperature of a location  
+``!cdb weather CITY_NAME``
+
+
 ## To Be Done
-* !cdb time Tokyo pour avoir l'heure actuelle de Tokyo (+ Décalage UTC)
-* !cdb trad en fr "I am tomato"
-* !cdb rep DasFranck "J'ai faim"
+* ``!cdb time Tokyo pour avoir l'heure actuelle de Tokyo (+ Décalage UTC)``
+* ``!cdb trad en fr "I am tomato"``
+* ``!cdb rep DasFranck "J'ai faim"``
+* ``!c key = value`` and ``!c key`` which display value
+  * Probably saved in pickle or json (I think it'll be JSON)
+
 
 ## Changelog
 ### Version 0.4 (11/03/2016)
