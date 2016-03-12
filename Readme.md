@@ -4,7 +4,7 @@ Un con de bot IRC.
 ## Features
 * Display his own version  
 ``!cdb version``
-* Make a good coffee
+* Make a good coffee  
 ``!cdb coffee``
 * Display actual weather and temperature of a location  
 ``!cdb weather CITY_NAME``
