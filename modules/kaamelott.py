@@ -11,8 +11,8 @@ except ImportError as message:
 
 
 # Display random quotes of Kaamelott
-def quote(self, serv, message, nick, public):
-    arglist = shlex.split(message)
+def quote(self, serv, command, nick, public):
+    arglist = shlex.split(command)
     fd_kaam = codecs.open("txtfiles/kaamelott.txt", "r", "utf-8")
     buf = fd_kaam.read()
     nb = random.randint(1, int(buf[0:buf.index('\n')]))
@@ -26,8 +26,8 @@ def quote(self, serv, message, nick, public):
 
 
 # Display specific quotes of Kaamelott
-def spec(self, serv, message, nick, public):
-    arglist = shlex.split(message)
+def spec(self, serv, command, nick, public):
+    arglist = shlex.split(command)
     fd_kaam = codecs.open("txtfiles/kaamelott.txt", "r", "utf-8")
     buf = fd_kaam.read()
 
@@ -53,10 +53,10 @@ def spec(self, serv, message, nick, public):
 
 
 # Manage Kaamelott
-def main(self, serv, message, nick, public):
-    arglist = shlex.split(message)
+def main(self, serv, command, nick, public):
+    arglist = shlex.split(command)
     if (len(arglist) == 2):
-        return (quote(self, serv, message, nick, public))
+        return (quote(self, serv, command, nick, public))
     elif (len(arglist) >= 3 and arglist[2] == "-q"):
-        return (spec(self, serv, message, nick, public))
+        return (spec(self, serv, command, nick, public))
     return

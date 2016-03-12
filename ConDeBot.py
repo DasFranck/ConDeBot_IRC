@@ -162,8 +162,8 @@ class CDB(irc.bot.SingleServerIRCBot):
             elif (command.split(" ")[1] in ["weather", "météo", "meteo"]):
                 weather.main(self, serv, command, nick, public)
 
-            #Set/Unset operators
-            elif (command.split(" ")[1] in ["op", "deop"]):
+            #Manage operators
+            elif (command.split(" ")[1] in ["op", "deop", "isop", "list_op"]):
                 opmod.main(self, serv, command, nick, public)
         return
 

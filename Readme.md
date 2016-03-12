@@ -18,6 +18,19 @@ Un con de bot IRC.
 * Display actual weather and temperature of a location  
 ``!cdb weather CITY_NAME``
 
+* Manage Operators (OPs):
+  * Add an operator  
+  ``!cdb op NICK`` (OP Rights required)
+  * Delete an operator  
+    ``!cdb op NICK`` (OP Rights required)
+  * Check if some is an operator  
+    ``!cdb isop NICK``
+  * List operators  
+    ``!cdb list_op``
+
+* Remotly kill the bot  
+  ``!cdb suicide`` (OP Rights required)
+
 
 ## To Be Done
 * ``!cdb time Tokyo pour avoir l'heure actuelle de Tokyo (+ Décalage UTC)``
@@ -28,6 +41,9 @@ Un con de bot IRC.
 
 
 ## Changelog
+### Version 0.5 (xx/03/2016)
+* Operator managing module added
+
 ### Version 0.4 (11/03/2016)
 * Kaamellot and weather are back from the dead.
 * Full rewrite finished.

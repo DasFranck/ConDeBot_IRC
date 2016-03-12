@@ -16,8 +16,8 @@ except ImportError as message:
 
 
 # Display weather of the city of arglist[2+]
-def main(self, serv, message, nick, public):
-    arglist = shlex.split(message)
+def main(self, serv, command, nick, public):
+    arglist = shlex.split(command)
     if (len(arglist) == 2):
         self.log_info_command("Weather's usage requested by " + nick, public)
         self.speak(serv, "Usage : !cdb weather CITY_NAME", nick, public)
