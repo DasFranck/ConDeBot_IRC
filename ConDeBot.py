@@ -71,7 +71,7 @@ class CDB(irc.bot.SingleServerIRCBot):
         self.logger.addHandler(stream_handler)
 
         #Init IRCBot
-        self.logger.info("#------------------------------#")
+        self.logger.info("#-------------START-------------#")
         self.logger.info("Initialization of IRCBot Started")
         irc.bot.SingleServerIRCBot.__init__(self, [(server, port)], nickname, "Con de Bot IRC")
         irc.client.ServerConnection.buffer_class.errors = 'replace'
@@ -137,6 +137,7 @@ class CDB(irc.bot.SingleServerIRCBot):
         command = ev.arguments[0];
 
         if (command.split(" ")[0] == "!cdb"):
+            action = command.split(" ")[1]
 
             #Display help
             if (len(command.split(" ")) == 1 or command.split(" ")[1] == "help"):
@@ -145,27 +146,48 @@ class CDB(irc.bot.SingleServerIRCBot):
                 return
 
             #Display bot's version
-            if (command.split(" ")[1] == "version"):
+            if (action == "version"):
                 self.log_info_command("Version requested by " + nick, public)
                 self.speak(serv, NAME + "'s version : " + VERS, nick, public)
 
             #Serve a delicious coffee (Module: "coffee")
-            elif (command.split(" ")[1] in ["café", "cafe", "coffee"]):
+            elif (action in ["café", "cafe", "coffee"]):
                 self.log_info_command("Coffee requested by " + nick, public)
                 self.speak(serv, "Here " + nick + ", that's your coffee. " + coffee.quote(), nick, public)
 
             #Display a kaamelott quote (Module: "kaamelott")
-            elif (command.split(" ")[1] in ["kaamelott"]):
+            elif (action in ["kaamelott"]):
                 kaamelott.main(self, serv, command, nick, public)
 
             #Display the weather of the argument city (Module: "Weather)
-            elif (command.split(" ")[1] in ["weather", "météo", "meteo"]):
+            elif (action in ["weather", "météo", "meteo"]):
                 weather.main(self, serv, command, nick, public)
 
             #Manage operators
-            elif (command.split(" ")[1] in ["op", "deop", "isop", "list_op"]):
+            elif (action in ["op", "deop", "isop", "list_op"]):
                 opmod.main(self, serv, command, nick, public)
+
+            elif (action in ["slain", "kill", "suicide"]):
+                self.suicide(serv, action, nick, public)
         return
+
+    #So long, cruel world.
+    def suicide(self, serv, action, nick, public):
+        if (not opmod.isop(nick)):
+            self.speak(serv, "You don't have the right to do that.", nick, public)
+            self.log_warn_command("Bot Suicide requested by NON-OP %s, FAILED" % (nick), public)
+        else:
+            if (action == "slain"):
+                self.speak(serv, "%s has been slained by %s." % (NAME, nick), nick, public)
+            if (action == "kill"):
+                self.speak(serv, "%s has been killed by %s." % (NAME, nick), nick, public)
+            if (action == "suicide"):
+                self.speak(serv, "%s is suiciding himself. With %s's help." % (NAME, nick), nick, public)
+            self.log_info_command("Bot Suicide requested by %s" % (nick), public)
+            self.logger.info("#--------------END--------------#")
+            exit(12)
+        return
+
 
 # The Main.
 def main():

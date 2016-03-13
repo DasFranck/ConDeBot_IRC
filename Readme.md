@@ -43,6 +43,7 @@ Un con de bot IRC.
 ## Changelog
 ### Version 0.5 (xx/03/2016)
 * Operator managing module added
+* Remote kill
 
 ### Version 0.4 (11/03/2016)
 * Kaamellot and weather are back from the dead.

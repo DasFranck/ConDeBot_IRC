@@ -76,12 +76,13 @@ def deop_him(self, serv, guy, ops, nick, public):
 #Op user
 def op_list(self, serv, ops, nick, public):
     self.log_info_command("Operator list requested by %s" % nick, public)
-    self.speak(serv, "Operator list: ", nick, public)
+    string = "Operator list: "
     for op in ops:
         if (op == ops[-1]):
-            self.speak(serv, "%s" % op , nick, public)
+            string += "%s" % op
         else:
-            self.speak(serv, "%s, " % op, nick, public)
+            string += "%s, " % op
+    self.speak(serv, string, nick, public)
     return
 
 
