@@ -41,14 +41,14 @@ Un con de bot IRC.
 * ``!cdb rep DasFranck "J'ai faim"``
 * ``!c key = value`` and ``!c key`` which display value
   * Probably saved in pickle or json (I think it'll be JSON)
-* Redirections (_e.g._ ``!cdb weather Paris > HS-157)``
+* Redirections (_e.g._ ``!cdb weather Paris > HS-157``)
 
 
 ## Changelog
 ### Version 0.5 (xx/03/2016)
 * Operator managing module added
 * Remote kill
-* Command to display source code (git repositories)
+* Command to display his source code (git repositories)
 
 ### Version 0.4 (11/03/2016)
 * Kaamellot and weather are back from the dead.
