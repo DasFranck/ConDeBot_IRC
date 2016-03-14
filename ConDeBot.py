@@ -150,6 +150,10 @@ class CDB(irc.bot.SingleServerIRCBot):
                 self.log_info_command("Version requested by " + nick, public)
                 self.speak(serv, NAME + "'s version : " + VERS, nick, public)
 
+            elif (action == "source"):
+                self.log_info_command(NAME +"'s source files requested by " + nick, public)
+                self.speak(serv, NAME + "'s source files : https://git.daspat.fr/ConDeBot and https://github.com/DasFranck/ConDeBot", nick, public)
+
             #Serve a delicious coffee (Module: "coffee")
             elif (action in ["café", "cafe", "coffee"]):
                 self.log_info_command("Coffee requested by " + nick, public)
