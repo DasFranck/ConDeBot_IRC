@@ -41,7 +41,7 @@ Un con de bot IRC.
 * ``!cdb rep DasFranck "J'ai faim"``
 * ``!c key = value`` and ``!c key`` which display value
   * Probably saved in pickle or json (I think it'll be JSON)
-* Redirections (_e.g._ ``!cdb weather Paris > HS-157``
+* Redirections (_e.g._ ``!cdb weather Paris > HS-157)``
 
 
 ## Changelog
