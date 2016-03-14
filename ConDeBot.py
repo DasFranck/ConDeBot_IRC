@@ -5,7 +5,7 @@
 ## Desc:    Un con de bot IRC.
 ##
 ## Author:  "Das" Franck Hochstaetter
-## Version: 0.5dev (11/03/2016)
+## Version: 0.5dev (xx/03/2016)
 ##
 ## Dependencies : Python-forecastio (pip install python-forecastio)
 ##                  Python wrapper around the OpenWeatherMap API
@@ -159,14 +159,15 @@ class CDB(irc.bot.SingleServerIRCBot):
             elif (action in ["kaamelott"]):
                 kaamelott.main(self, serv, command, nick, public)
 
-            #Display the weather of the argument city (Module: "Weather)
+            #Display the weather of the argument city (Module: "weather")
             elif (action in ["weather", "météo", "meteo"]):
                 weather.main(self, serv, command, nick, public)
 
-            #Manage operators
+            #Manage operators (Module: "opmod"
             elif (action in ["op", "deop", "isop", "list_op"]):
                 opmod.main(self, serv, command, nick, public)
 
+            #Kill that bot
             elif (action in ["slain", "kill", "suicide"]):
                 self.suicide(serv, action, nick, public)
         return
