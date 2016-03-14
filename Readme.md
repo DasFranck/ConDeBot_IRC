@@ -31,7 +31,7 @@ Un con de bot IRC.
 * Remotly kill the bot  
   ``!cdb suicide`` (OP Rights required)
 
-* Display his source code
+* Display his source code  
   ``!cdb source``
 
 
