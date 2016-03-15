@@ -134,11 +134,10 @@ class CDB(irc.bot.SingleServerIRCBot):
     def do_command(self, serv, ev, public):
         nick = ev.source.nick
         channel = self.connection
-        command = ev.arguments[0];
+        command = ev.arguments[0]
+        action = command.split(" ")[1] if len(command.split(" ")) > 1 else ""
 
         if (command.split(" ")[0] == "!cdb"):
-            action = command.split(" ")[1]
-
             #Display help
             if (len(command.split(" ")) == 1 or command.split(" ")[1] == "help"):
                 self.log_info_command("Help requested by " + nick, public)
@@ -174,6 +173,11 @@ class CDB(irc.bot.SingleServerIRCBot):
             #Kill that bot
             elif (action in ["slain", "kill", "suicide"]):
                 self.suicide(serv, action, nick, public)
+
+        # !c MESSAGE
+        elif (command.split(" ")[0] == "!c"):
+            #if (len(command.split(" ")) == 2):
+            return
         return
 
     #So long, cruel world.
@@ -208,4 +212,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main();
+    main()
