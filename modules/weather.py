@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 
+NAME        = "ConDeBot"
 WAPI        = "d9a2ec468ac33925d45017727ed4e499"    # Forecast.io API Key
 
 

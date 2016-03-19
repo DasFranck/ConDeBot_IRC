@@ -15,16 +15,21 @@
 
 
 #Define globals
-NAME        = 'ConDeBot'                            # Name
-SHME        = 'CDB'                                 # Short Name
-VERS        = '0.5dev'                              # Version
-CDB_PATH    = '../ConDeBot/'                        # Path to ConDeBot root directory
+NAME        = "ConDeBot"                            # Name
+SHME        = "CDB"                                 # Short Name
+VERS        = "0.5dev"                              # Version
+CDB_PATH    = "../ConDeBot/"                        # Path to ConDeBot root directory
 
 HELP = NAME + " v" + VERS + "\nUSAGE :\n" \
-        + "!cdb coffee                  Serve some coffee\n" \
-        + "!cdb kaamelott [-q ID]       Kaamelott quotes\n" \
-        + "!cdb version                 Show CDB and Weechat Version\n" \
-        + "!cdb weather CITY_NAME       Show the weather and temperature of CITY_NAME"
+        + "!cdb coffee                  Serve some coffee\n"                                        \
+        + "!cdb kaamelott [-q ID]       Kaamelott quotes\n"                                         \
+        + "!cdb version                 Show CDB and Weechat Version\n"                             \
+        + "!cdb weather CITY_NAME       Show the weather and temperature of CITY_NAME\n"            \
+        + "!cdb op USERNAME             Grant USERNAME to Operator status (OP Rights needed)\n"     \
+        + "!cdb deop USERNAME           Remove USERNAME from Operator status (OP Rights needed)\n"  \
+        + "!cdb isop USERNAME           Check if USERNAME is an Operator status\n"                  \
+        + "!cdb list_op                 Print the Operators list\n"
+
 
 
 #Import modules with try and catch
@@ -45,6 +50,7 @@ from modules import kaamelott
 from modules import coffee
 from modules import weather
 from modules import opmod
+from modules import messenger
 
 
 
@@ -174,9 +180,9 @@ class CDB(irc.bot.SingleServerIRCBot):
             elif (action in ["slain", "kill", "suicide"]):
                 self.suicide(serv, action, nick, public)
 
-        # !c MESSAGE
-        elif (command.split(" ")[0] == "!c"):
-            #if (len(command.split(" ")) == 2):
+        #The messenger
+        elif (command.split(" ")[0] == "!c" or command.split(" ")[0] == "!ch"):
+            messenger.main(self, serv, command, nick, public)
             return
         return
 

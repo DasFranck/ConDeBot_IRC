@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-OPS_FILE_PATH="jsonfiles/"
-OPS_FILE=OPS_FILE_PATH + "ops.json"
+NAME            = "ConDeBot"
+OPS_FILE_PATH   = "jsonfiles/"
+OPS_FILE        = OPS_FILE_PATH + "ops.json"
 
 
 try:
@@ -113,4 +114,3 @@ def main(self, serv, command, nick, public):
     with open(OPS_FILE, 'w') as ops_file:
         json.dump(ops, ops_file)
     return
-
