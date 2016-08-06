@@ -1,4 +1,5 @@
 - Rename and finish the messenger module
 - Put more Kaamelott quotes
 - Use config file(s) (hjson probably)
+  - Trigger can be modified ("!" or "!cdb " as default)
 - Put API Keys in a separate file and not directly in the bot source code
