@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-
-NAME        = "ConDeBot"
-WAPI        = "d9a2ec468ac33925d45017727ed4e499"    # Forecast.io API Key
+NAME = "ConDeBot"
+WAPI = ""    # Forecast.io API Key
 
 
 try:
@@ -15,7 +14,6 @@ except ImportError as message:
     exit(12)
 
 
-
 # Display weather of the city of arglist[2+]
 def main(self, serv, command, nick, public):
     arglist = shlex.split(command)
@@ -24,8 +22,8 @@ def main(self, serv, command, nick, public):
         self.speak(serv, "Usage : !cdb weather CITY_NAME", nick, public)
         return
 
-    geolocator = Nominatim();
-    city_name = "";
+    geolocator = Nominatim()
+    city_name = ""
     for i in range(2, len(arglist)):
         city_name += arglist[i] + " "
 

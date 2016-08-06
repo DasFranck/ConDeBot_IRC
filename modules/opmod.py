@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-NAME            = "ConDeBot"
-OPS_FILE_PATH   = "jsonfiles/"
-OPS_FILE        = OPS_FILE_PATH + "ops.json"
+NAME = "ConDeBot"
+OPS_FILE_PATH = "jsonfiles/"
+OPS_FILE = OPS_FILE_PATH + "ops.json"
 
 
 try:
@@ -15,8 +15,7 @@ except ImportError as message:
     exit(12)
 
 
-
-#Check if user is op (NOT LOGGED FUNCTION, meant to be use in the source code of CDB)
+# Check if user is op (NOT LOGGED FUNCTION, meant to be use in the source code of CDB)
 def isop(guy):
     if (os.path.isfile(OPS_FILE)):
         with open(OPS_FILE) as ops_file:
@@ -26,7 +25,7 @@ def isop(guy):
         return (False)
 
 
-#Check if user is op (LOGGED FUNCTION, meant to be used via !cdb isop)
+# Check if user is op (LOGGED FUNCTION, meant to be used via !cdb isop)
 def isop_l(self, serv, guy, nick, public):
     self.log_info_command("Operator status of %s (%s) requested by %s" % (guy, isop(guy), nick), public)
     if (isop(guy)):
@@ -36,7 +35,7 @@ def isop_l(self, serv, guy, nick, public):
     return
 
 
-#Op user
+# Op user
 def op_him(self, serv, guy, ops, nick, public):
     if (not isop(nick)):
         self.speak(serv, "You don't have the right to do that.", nick, public)
@@ -56,7 +55,7 @@ def op_him(self, serv, guy, ops, nick, public):
     return (ops)
 
 
-#Deop user
+# Deop user
 def deop_him(self, serv, guy, ops, nick, public):
     if (not isop(nick)):
         self.speak(serv, "You don't have the right to do that.", nick, public)
@@ -74,7 +73,7 @@ def deop_him(self, serv, guy, ops, nick, public):
     return (ops)
 
 
-#Op user
+# Op user
 def op_list(self, serv, ops, nick, public):
     self.log_info_command("Operator list requested by %s" % nick, public)
     string = "Operator list: "
@@ -87,14 +86,14 @@ def op_list(self, serv, ops, nick, public):
     return
 
 
-#The main manager
+# The main manager
 def main(self, serv, command, nick, public):
     arglist = shlex.split(command)
     if (not os.path.exists(OPS_FILE_PATH)):
         os.makedirs(OPS_FILE_PATH)
 
     ops = []
-    #If json file exist, load it
+    # If json file exist, load it
     if (os.path.isfile(OPS_FILE)):
         with open(OPS_FILE) as ops_file:
             ops = json.load(ops_file)

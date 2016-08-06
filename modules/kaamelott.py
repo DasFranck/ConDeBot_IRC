@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-NAME            = "ConDeBot"
+NAME = "ConDeBot"
 
 try:
     import codecs
@@ -14,11 +14,11 @@ except ImportError as message:
 
 # Display random quotes of Kaamelott
 def quote(self, serv, command, nick, public):
-    arglist = shlex.split(command)
+    # arglist = shlex.split(command)
     fd_kaam = codecs.open("txtfiles/kaamelott.txt", "r", "utf-8")
     buf = fd_kaam.read()
     nb = random.randint(1, int(buf[0:buf.index('\n')]))
-    beg_quote = buf.find("#"+str(nb))
+    beg_quote = buf.find("#" + str(nb))
     end_quote = beg_quote + buf[beg_quote:].find("\n\n") + 1
 
     self.log_info_command("Random Kaamelott Quote (#" + str(nb) + ") was requested by " + nick, public)
@@ -39,14 +39,14 @@ def spec(self, serv, command, nick, public):
         fd_kaam.close()
         return
 
-    nb = int(arglist[3]);
+    nb = int(arglist[3])
     if (nb > int(buf[0:buf.index('\n')])):
         self.log_warn_command("Non-existant Kaamelott Quote #" + str(nb) + " was requested by " + nick, public)
         self.speak(serv, "FAILED : Kaamelott Quote #" + str(nb) + " doesn't exist", nick, public)
         fd_kaam.close()
         return
 
-    beg_quote = buf.find("#"+str(nb))
+    beg_quote = buf.find("#" + str(nb))
     end_quote = beg_quote + buf[beg_quote:].find("\n\n") + 1
     self.log_info_command("Kaamelott Quote #" + str(nb) + " was requested by " + nick, public)
     self.speak(serv, buf[beg_quote:end_quote], nick, public)

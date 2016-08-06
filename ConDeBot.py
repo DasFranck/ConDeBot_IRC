@@ -142,6 +142,7 @@ class CDB(irc.bot.SingleServerIRCBot):
         command = ev.arguments[0]
         action = command.split(" ")[1] if len(command.split(" ")) > 1 else ""
 
+        # TBD: A real module manager
         if (command.split(" ")[0] == "!cdb"):
             # Display help
             if (len(command.split(" ")) == 1 or command.split(" ")[1] == "help"):
