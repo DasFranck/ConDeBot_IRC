@@ -1,0 +1,3 @@
+- Rename and finish the messenger module
+- Put more Kaamelott quotes
+- Put API Keys in a separate file and not directly in the bot source code
