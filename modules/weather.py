@@ -29,9 +29,15 @@ def main(self, serv, command, nick, public):
 
     city_name = city_name[:-1]
     loc = geolocator.geocode(city_name)
-    forecast = forecastio.load_forecast(WAPI, loc.latitude, loc.longitude, units="si")
-    current_weather = forecast.currently()
-    self.speak(serv, "Weather : " + current_weather.summary, nick, public)
-    self.speak(serv, "Temperature : " + str(current_weather.temperature) + " °C", nick, public)
-    self.log_info_command("Weather of " + city_name + " was requested by " + nick, public)
+
+    try:
+        forecast = forecastio.load_forecast(WAPI, loc.latitude, loc.longitude, units="si")
+        current_weather = forecast.currently()
+        self.speak(serv, "Weather : " + current_weather.summary, nick, public)
+        self.speak(serv, "Temperature : " + str(current_weather.temperature) + " °C", nick, public)
+        self.log_info_command("Weather of " + city_name + " was requested by " + nick, public)
+    except:
+        self.speak(serv, "Meh... I can't get the weather of \"" + city_name + "\", sorry " + nick, nick, public)
+        self.log_error_command("Weather of " + city_name + " was requested by " + nick + " and it failed.", public)
+
     return
