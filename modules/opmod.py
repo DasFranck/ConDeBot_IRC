@@ -19,7 +19,7 @@ except ImportError as message:
 def isop(guy):
     if (os.path.isfile(OPS_FILE)):
         with open(OPS_FILE) as ops_file:
-            ops = json.load(ops_file)
+            ops = [x.lower() for x in json.load(ops_file)]
         return (guy.lower() in ops)
     else:
         return (False)
